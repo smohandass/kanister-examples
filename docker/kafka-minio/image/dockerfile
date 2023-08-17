@@ -1,0 +1,35 @@
+FROM confluentinc/cp-kafka-connect:7.4.1 as cp
+RUN confluent-hub install --no-prompt confluentinc/kafka-connect-s3:10.4.2
+RUN confluent-hub install --no-prompt confluentinc/kafka-connect-s3-source:2.5.7
+RUN confluent-hub install --no-prompt confluentinc/kafka-connect-avro-converter:7.3.3
+
+
+FROM quay.io/strimzi/kafka:0.34.0-kafka-3.4.0
+USER root:root
+
+RUN microdnf update
+RUN microdnf install -y vi
+RUN microdnf install -y wget 
+RUN microdnf install procps
+RUN microdnf install -y lsof
+
+# Install Kanister Tools 
+RUN wget https://raw.githubusercontent.com/kanisterio/kanister/master/scripts/get.sh
+RUN ln -s /usr/bin/sha256sum /usr/bin/shasum
+RUN sed -i 's/shasum -a 256/shasum/g' get.sh
+RUN sh get.sh
+
+# Copy S3 dependency jars to plugins directory
+COPY --from=cp /usr/share/confluent-hub-components/confluentinc-kafka-connect-s3/ /opt/kafka/plugins/kafka-connect-s3/
+COPY --from=cp /usr/share/confluent-hub-components/confluentinc-kafka-connect-s3-source/ /opt/kafka/plugins/kafka-connect-s3-source/
+
+# adding script to monitor sink
+COPY monitorsink.sh /opt/kafka/monitorsink.sh
+
+# adding script to monitor source
+COPY monitorsource.sh /opt/kafka/monitorsource.sh
+
+# Install kafka mc client
+RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc --create-dirs -o /opt/kafka/mc
+RUN chmod +x /opt/kafka/mc
+
