@@ -29,8 +29,8 @@ actions:
           - -c
           - |
             mkdir /tmp/config
-            export AWS_ACCESS_KEY="ydD9rfX91HhBLkkpQqT8"
-            export AWS_SECRET_KEY="eWbtybdfpSskY4nAvrvtHTSOikTzBzCVevXBBuMl"
+            export AWS_ACCESS_KEY="xxxxxx"
+            export AWS_SECRET_KEY="xxxxxx"
             export REGION="{{ .Profile.Location.Region }}"
             export BUCKET="{{ .Profile.Location.Bucket }}"
             
@@ -97,8 +97,8 @@ actions:
         - |
           mkdir /tmp/config
           echo "Running Restore Prephase" 
-          export AWS_ACCESS_KEY="ydD9rfX91HhBLkkpQqT8"
-          export AWS_SECRET_KEY="eWbtybdfpSskY4nAvrvtHTSOikTzBzCVevXBBuMl"
+          export AWS_ACCESS_KEY="xxxxxx"
+          export AWS_SECRET_KEY="xxxxxx"
           export REGION="{{ .Profile.Location.Region }}"
           export BUCKET="{{ .Profile.Location.Bucket }}"
 
@@ -175,8 +175,8 @@ actions:
           - |
             echo "Running restore phase" 
             mkdir /tmp/config
-            export AWS_ACCESS_KEY="ydD9rfX91HhBLkkpQqT8"
-            export AWS_SECRET_KEY="eWbtybdfpSskY4nAvrvtHTSOikTzBzCVevXBBuMl"
+            export AWS_ACCESS_KEY="xxxxxx"
+            export AWS_SECRET_KEY="xxxxx"
             export REGION="{{ .Profile.Location.Region }}"
             export BUCKET="{{ .Profile.Location.Bucket }}"
             echo "REGION = $REGION"
@@ -240,8 +240,8 @@ actions:
         - |
           mkdir /tmp/config
           echo "Running deleteFromBlobStore phase"
-          export AWS_ACCESS_KEY="ydD9rfX91HhBLkkpQqT8"
-          export AWS_SECRET_KEY="eWbtybdfpSskY4nAvrvtHTSOikTzBzCVevXBBuMl"
+          export AWS_ACCESS_KEY="xxxxxx"
+          export AWS_SECRET_KEY="xxxxxx"
           export REGION="{{ .Profile.Location.Region }}"
           export BUCKET="{{ .Profile.Location.Bucket }}"
           
